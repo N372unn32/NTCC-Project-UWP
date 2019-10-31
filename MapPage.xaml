@@ -1,0 +1,125 @@
+﻿<Page
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:College_Project_Version_One"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Map="using:Windows.UI.Xaml.Controls.Maps"
+    x:Class="College_Project_Version_One.MapPage"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid RequestedTheme="Dark" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Map:MapControl Grid.Row="0" x:Name="MyMap"                    
+                        ZoomLevelChanged="MyMap_ZoomLevelChanged" 
+                        ZoomInteractionMode="GestureAndControl"  
+                        Style ="Terrain" Loaded="MyMap_Loaded"
+                        TiltInteractionMode="GestureAndControl" Background="Pink" 
+                        Unloaded="MyMap_Unloaded"
+                        MapServiceToken="<<PLACE YOUR BING MAPS DEV CENTER KEY HERE>>"/>
+        <AppBar Grid.Row="1" Opened="MyAppBar_Opened" 
+                Closed="MyAppBar_Closed" Background="Transparent" 
+                Height="Auto" Width="Auto" x:Name="MyAppBar"
+                RequestedTheme="Dark" FlowDirection="LeftToRight">
+                <AppBarElementContainer Padding="2"   >
+                <ScrollViewer HorizontalScrollMode="Enabled" BorderThickness="1"
+                              VerticalScrollBarVisibility="Hidden" RequestedTheme="Light"
+                              HorizontalScrollBarVisibility="Hidden" 
+                              VerticalScrollMode="Disabled">
+                <StackPanel Orientation="Horizontal" Margin="2" Width="Auto" Height="Auto"
+                            AllowDrop="True"
+                            Background="{ThemeResource SystemControlAccentDark2AcrylicWindowAccentDark2MediumHighBrush}">
+                    <Button x:Name="CurrentButton" Content="Current Position" 
+                    HorizontalAlignment="Left" Background="{ThemeResource SystemAccentColorLight2}"
+                    Width="Auto"   Margin="1,0,1,0" 
+                    Click="CurrentButton_Click"/>
+                        <Button x:Name="SetPosButton" 
+                                Background="{ThemeResource SystemAccentColorLight2}"   Margin="1,0,1,0" 
+                        Content="Set Position"
+                        HorizontalAlignment="Left"
+                        Width="Auto" 
+                    Click="SetPosButton_Click">
+                            <Button.Flyout>
+                                <Flyout x:Name="SetPosFlyout" >
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBox x:Name="LatTextBox" TextWrapping="Wrap" Height="Auto" Width="Auto" 
+                                                 PlaceholderText="Enter Latitude"/>
+                                        <TextBox x:Name="LongTextBox" TextWrapping="Wrap" Height="Auto" Width="Auto"
+                                                 PlaceholderText="Enter Longitude"/>
+                                        <Button x:Name="ConfirmButton" Content="Submit" Height="Auto" Width="Auto" 
+                                                Click="ConfirmButton_Click" />
+                                    </StackPanel>
+                                </Flyout>
+                            </Button.Flyout>
+                        </Button>
+                        <Button x:Name="SetAttributes" Background="{ThemeResource SystemAccentColorLight2}"  Margin="1,0,1,0" 
+                        Content="Set Map Attributes"> 
+                        <Button.Flyout >
+                            <MenuFlyout x:Name="SetAttributesFlyout" >
+
+
+
+                                <MenuFlyoutSubItem x:Name="SelectStyleFlyout" Text="Select Style" >
+                                    <MenuFlyoutItem x:Name="TerrainSubItem" Text="Terrain" Click="Select_Terrain" />
+                                    <MenuFlyoutItem x:Name="AerialSubItem" Text="Aerial" Click="Select_Terrain"/>
+                                    <MenuFlyoutItem x:Name="RoadSubItem" Text="Road" Click="Select_Terrain"/>
+                                    <MenuFlyoutItem x:Name="NoneSubItem" Text="None" Click="Select_Terrain"/>
+                                </MenuFlyoutSubItem>
+                            </MenuFlyout>
+                        </Button.Flyout>
+                    </Button>
+                        <Button x:Name="NavigateToAddressButton" Content="Navigate To Address" 
+                                Background="{ThemeResource SystemAccentColorLight2}"   Margin="1,0,1,0"  >
+                        <Button.Flyout>
+                            <Flyout x:Name="AddressFlyout">
+                                <StackPanel>
+                                    <TextBox x:Name="GetAddressTextBox"
+                                             PlaceholderText="Enter Address" Width="Auto" Height="Auto" TextWrapping="Wrap" />
+                                    <Button x:Name="AddressSubmitted" Click="AddressSubmitted_Click" Content="OK" Margin="2" 
+                                            Width="Auto" Height="Auto"  />
+                                </StackPanel>
+                            </Flyout>
+                        </Button.Flyout>
+                    </Button>
+                        <Button x:Name="SetZoomButton" Content="Set Zoom" Background="{ThemeResource SystemAccentColorLight2}" 
+                                Margin="1,0,1,0" >
+                        <Button.Flyout>
+                            <Flyout x:Name="ZoomFlyout">
+                                <StackPanel>
+                                    <Slider x:Name="ZoomSlider" HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"  Minimum="0" Maximum="20" 
+                    Margin="5,0,0,0" Height="Auto" Width="100"
+                    Background="{ThemeResource SystemAccentColorLight2}"
+                                            Foreground="Blue" BorderThickness="100" BorderBrush="Red"
+                                            ValueChanged="ZoomSlider_ValueChanged"/>
+                                </StackPanel>
+                            </Flyout>
+                        </Button.Flyout>
+
+                    </Button>
+
+                        <Button Height="Auto" Width="Auto" Background="{ThemeResource SystemAccentColorLight2}"
+                                Content="Default Weather Map Options"   Margin="1,0,1,0" >
+                            <Button.Flyout>
+                                <Flyout>
+                                    <StackPanel>
+                                        <Button x:Name="GoToDefault" Click="GoToDefault_Click" 
+                                                Content="Go To Default Map App" Height="Auto" Width="Auto"/>
+                                        
+                                    </StackPanel>
+                                </Flyout>
+                            </Button.Flyout>
+                        </Button>
+                    </StackPanel>
+                </ScrollViewer>
+            </AppBarElementContainer>
+
+
+        </AppBar>
+    </Grid>
+</Page>

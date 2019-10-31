@@ -1,0 +1,30 @@
+﻿<Page
+    x:Class="College_Project_Version_One.Home"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:College_Project_Version_One"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Loaded="Page_Loaded">
+
+    <Grid Background="Azure">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="WelcomeTextBlock" HorizontalAlignment="Center"
+                   Grid.Row="0" VerticalAlignment="Top" Text="WELCOME"
+                    Margin="0,0,0,0" Height="Auto" Width="Auto" 
+                   Foreground="Black" TextTrimming="WordEllipsis" TextWrapping="Wrap"
+                   FontSize="50" FontWeight="SemiBold" 
+                   Style="{ThemeResource HeaderTextBlockStyle}"/>
+        <WebView x:Name="DocView"  Grid.Row="1" Height="Auto" Margin="5" Width="Auto" 
+                 Visibility="Visible" Loaded="DocView_Loaded" 
+                 Unloaded="DocView_Unloaded" 
+                 NavigationFailed="DocView_NavigationFailed"
+                  
+                 Source="https://sway.office.com/EwLiN5p0i4jE91BX?ref=Link" />
+    </Grid>
+</Page>

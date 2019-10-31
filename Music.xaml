@@ -1,0 +1,72 @@
+﻿<Page
+    x:Class="College_Project_Version_One.Music"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:College_Project_Version_One"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:data="using:College_Project_Version_One.Models" 
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Loaded="Page_Loaded">
+
+    <Grid Background="{ThemeResource SystemControlAccentDark2AcrylicWindowAccentDark2MediumHighBrush}" Loaded="Grid_Loaded">
+        <Grid.RowDefinitions>
+            <RowDefinition  Height="100"/>
+            <RowDefinition  Height="3*"/>
+            <RowDefinition  Height="*"/>
+        </Grid.RowDefinitions>
+        <ProgressRing Grid.Row="0" Foreground="Silver"
+                      Grid.RowSpan="3" x:Name="MyProgressRing"
+                      HorizontalAlignment="Center" 
+                      VerticalAlignment="Center" 
+                      IsActive="True" 
+                      Width="100" 
+                      Height="100"/>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto"
+                      VerticalScrollMode="Auto" HorizontalScrollBarVisibility="Disabled" 
+                      HorizontalScrollMode="Disabled" ZoomMode="Enabled">
+        <GridView x:Name="SongsGridView" Grid.Row="1"
+                  Margin="2" Loaded="SongsGridView_Loaded"
+                  IsItemClickEnabled="True" 
+                  SelectionMode="Single" ItemsSource="{x:Bind Songs}"
+                  IsSwipeEnabled="True" 
+                  ItemClick="SongsGridView_ItemClick">
+            
+                <GridView.ItemTemplate>
+                <DataTemplate x:DataType="data:Song" >
+                    <Grid>
+                        <StackPanel Orientation="Vertical">
+                            <Image Name="AlbumArtImage"
+                               Height="100" Width="100" Stretch="UniformToFill"
+                               Source="{x:Bind AlbumCover}" HorizontalAlignment="Center" 
+                                   VerticalAlignment="Top" />
+                            <TextBlock x:Name="TitleBlock" Height="Auto" HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" Margin="1" FontWeight="Bold" FontSize="15" 
+                                       Style="{ThemeResource CaptionTextBlockStyle}" TextWrapping="Wrap"
+                                       Width="Auto" Foreground="White" 
+                                       Text="{x:Bind Title}"/>
+
+                            <TextBlock x:Name="ArtistBlock" Height="Auto" HorizontalAlignment="Center"
+                                       Style="{ThemeResource SubheaderTextBlockStyle}" 
+                                       VerticalAlignment="Center" Margin="1" FontWeight="Bold" FontSize="15" TextWrapping="Wrap"
+                                       Width="Auto" Foreground="White" 
+                                       Text="{x:Bind Artist}"/>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+            
+        </GridView>
+        </ScrollViewer>
+        <StackPanel Grid.Row="2" Grid.RowSpan="3"
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Bottom">
+
+            <MediaPlayerElement Grid.RowSpan="3" x:Name="MyMediaPlayer" AutoPlay="False" 
+                                AreTransportControlsEnabled="True" Height="150" Width="Auto"  />
+            
+        </StackPanel>
+
+    </Grid>
+</Page>

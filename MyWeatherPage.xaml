@@ -1,0 +1,185 @@
+﻿<Page
+    x:Class="College_Project_Version_One.MyWeatherPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:College_Project_Version_One"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Loaded="Page_Loaded"
+    >
+
+    <Grid x:Name="Ultimate_Grid" Background="Black" Opacity="100" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+     <!--   <ScrollViewer Grid.Row="0" x:Name="RowOneScrollViewer"
+                      VerticalScrollBarVisibility="Hidden" 
+                      Background="LightSkyBlue"
+                      VerticalScrollMode="Disabled"
+                      HorizontalScrollBarVisibility="Hidden" 
+                      HorizontalScrollMode="Disabled"
+                      Margin="10">
+      -->
+        <Grid x:Name="RowOneGrid" Grid.Row="0"                        Margin="10"
+            Background="Gray" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" x:Name="OptionsRow"/>
+                    <RowDefinition Height="*" x:Name="DataRow"/>
+                </Grid.RowDefinitions>
+            <StackPanel Orientation="Vertical"
+                            Grid.Row="0"
+                            Background="{ThemeResource SystemControlAccentDark1AcrylicWindowAccentDark1Brush}"
+                            x:Name="OptionsStackPannel"
+                            Margin="5">
+                <RadioButton x:Name="StaticRadioButton" Content="Get Weather for current location" IsChecked="True" 
+                MaxWidth="500" MinWidth="100" GroupName="HowToGetData" Click="StaticRadioButton_Checked" IsThreeState="False"/>
+              
+                <RadioButton x:Name="DynamicRadioButton"              
+                                 
+                                 Content=" Get Weather by Coordinates" 
+                                 GroupName="HowToGetData" 
+                                 Click="DynamicRadioButton_Checked"
+                                 MaxWidth="500" MinWidth="100" IsThreeState="False"/>
+                <RadioButton x:Name="ByAddressRadioButton"              
+                                 
+                                 Content=" Get Weather by Address" 
+                                 GroupName="HowToGetData" 
+                                 Click="ByAddressRadioButton_Click"
+                                 MaxWidth="500" MinWidth="100" IsThreeState="False"/>
+
+                <StackPanel Orientation="Horizontal"
+                                x:Name="DynamicStackPanel">
+
+                    <TextBox x:Name="LatitudeTextBlock" 
+                                 PlaceholderText="Enter Latitude" BeforeTextChanging="LatitudeTextBlock_BeforeTextChanging" 
+                                 Margin="3,3,10,3" TextWrapping="Wrap" Height="Auto" Width="Auto"
+                                 BorderBrush="Black" Visibility="Collapsed" 
+                                 BorderThickness="2" />
+
+                    <TextBox x:Name="LongitudeTextBlock" 
+                                 PlaceholderText="Enter Longitude" Width="Auto" 
+                                 Margin="3" TextWrapping="Wrap" Height="Auto"
+                                 BorderBrush="Black"  Visibility="Collapsed"
+                                 BorderThickness="2"/>
+
+                    <TextBox x:Name="EnteredAddressTextBlock" 
+                                 PlaceholderText="Enter Address" Width="270" 
+                                 Margin="3" TextWrapping="Wrap" Height="Auto"
+                                 BorderBrush="Black"  Visibility="Collapsed"
+                                 BorderThickness="2"/>
+
+                    <Button x:Name="GetDataButton" 
+                                Content="Get Data"
+                                BorderBrush="Black" 
+                                BorderThickness="2"
+                                Margin="3"
+                                Click="GetDataButton_Click"/>
+                </StackPanel>
+
+            </StackPanel>
+
+            <Grid Grid.Row="1" Background="{ThemeResource  SystemControlAccentDark2AcrylicWindowAccentDark2MediumHighBrush}">
+                    <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <ProgressRing x:Name="MyProgressRing" 
+                      IsActive="True"                      Grid.RowSpan="4" 
+                      HorizontalAlignment="Center" 
+                      VerticalAlignment="Center" 
+                      Foreground="Red" 
+                      Visibility="Visible"
+                      Height="200" Width="200"/>
+
+
+
+
+                <!--                <StackPanel Orientation="Vertical"
+                            VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"
+                            HorizontalAlignment="Center" Padding="0"
+                            Background="{ThemeResource SystemAccentColorLight2}"
+                            x:Name="DataStackPanel">
+-->
+                        <Image x:Name="DataImage" 
+                               Stretch="Uniform" 
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Margin="2" Width="Auto" 
+                               Grid.Row="0"
+                                Visibility="Collapsed"
+                                ToolTipService.ToolTip="The Image represents the image at the requested place"
+                               RelativePanel.AlignTopWithPanel="True" Canvas.ZIndex="1"/>
+
+                        <TextBlock x:Name="TemperatureTextBlock" 
+                                   TextWrapping="Wrap"
+                                   HorizontalAlignment="Center" Canvas.ZIndex="2"
+                                   VerticalAlignment="Center" 
+                                   Text="Temperature" 
+                                   Style="{StaticResource HeaderTextBlockStyle}"
+                                   Margin="2" 
+                                   FontSize="24" Foreground="White"
+                                   Grid.Row="1"
+                                   Height="Auto"
+                                   Width="Auto"
+                                   Visibility="Collapsed"    
+                                   ToolTipService.ToolTip="The Temperature for the requested weather is shown here" 
+                                   FontWeight="Bold"/>
+
+                        <TextBlock x:Name="DescriptionTextBlock"
+                                   Text="Description" Canvas.ZIndex="3"
+                                   TextWrapping="Wrap" 
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Margin="2" Foreground="White"
+                                   Grid.Row="2" FontSize="52"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   Height="Auto"
+                                   Visibility="Collapsed"                                   
+                                   ToolTipService.ToolTip="The description for the requested weather is shown here"
+                                   FontWeight="ExtraBold"/>
+
+                        <TextBlock x:Name="LocationTextBlock"
+                               Text="Location" Canvas.ZIndex="4"
+                                   Grid.Row="3" Foreground="White"
+                                   TextWrapping="Wrap" FontSize="37"
+                                   Visibility="Collapsed"                   
+                                   Width="Auto"
+                                   Height="Auto"
+                                   Margin="2"
+                                   Style="{StaticResource CaptionTextBlockStyle}" 
+                                   HorizontalAlignment="Center" FontWeight="SemiBold"
+                                   VerticalAlignment="Center"
+                               ToolTipService.ToolTip="The location for the requested weather is shown here"/>
+                
+   <!--             </StackPanel> 
+    -->            </Grid>
+
+                
+            </Grid>
+
+   <!--     </ScrollViewer> -->
+        <Grid x:Name="RowTwoGrid" Grid.Row="1" Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Data Provided by @OpenWeatherMap.org"
+                       Grid.Row="0"
+                       Style="{ThemeResource TitleTextBlockStyle}" TextWrapping="Wrap"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Bottom" Margin="0" FontWeight="Bold"
+                       FontSize="10"
+                       />
+            
+
+        </Grid>
+    </Grid>
+</Page>
